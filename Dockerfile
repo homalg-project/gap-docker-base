@@ -65,8 +65,8 @@ RUN    dpkg --add-architecture i386 \
             bash-completion \
     && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
-RUN    curl -L https://download.arangodb.com/arangodb39/DEBIAN/Release.key | gpg --dearmor > /etc/apt/trusted.gpg.d/arangodb.gpg \
-    && echo 'deb https://download.arangodb.com/arangodb39/DEBIAN/ /' > /etc/apt/sources.list.d/arangodb.list \
+RUN    curl -L https://download.arangodb.com/arangodb312/DEBIAN/Release.key | gpg --dearmor > /etc/apt/trusted.gpg.d/arangodb.gpg \
+    && echo 'deb https://download.arangodb.com/arangodb312/DEBIAN/ /' > /etc/apt/sources.list.d/arangodb.list \
     && apt-get update \
     && apt-get install arangodb3-client
 
