@@ -189,9 +189,17 @@ ENV PATH /home/gap/inst/julia-master/bin:${PATH}
 
 COPY clean_gap_packages.sh /home/gap/clean_gap_packages.sh
 
+# clone GAP.jl and CapAndHomalg.jl
+RUN mkdir -p .julia/dev
+RUN git clone https://github.com/oscar-system/GAP.jl .julia/dev/GAP
+RUN git clone https://github.com/homalg-project/CapAndHomalg.jl .julia/dev/CapAndHomalg
+
+# ignore compatibility of CapAndHomalg with GAP
+RUN sed -i '/GAP = "0.7/d' .julia/dev/CapAndHomalg/Project.toml
+
 # installation and cleaning has to happen in the some step or we will not get any saving due to the layering system
 # use CPU target "generic" to avoid recompilation on different x86_64 CPUs
-RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("IJulia"); Pkg.add(url = "https://github.com/oscar-system/GAP.jl"); Pkg.add("CapAndHomalg");'; bash clean_gap_packages.sh
+RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("IJulia"); Pkg.develop("GAP"); Pkg.develop("CapAndHomalg");'; bash clean_gap_packages.sh
 
 # Start from a BASH shell.
 CMD ["bash"]

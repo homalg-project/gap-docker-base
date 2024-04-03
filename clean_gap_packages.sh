@@ -2,7 +2,7 @@
 
 set -e
 
-gap_packages_artifact_hash=4e4ea19bd0229040a3916e7a351a4fa7b43ae0b6
+gap_packages_artifact_hash=1e4da4944af996a96c81addcc8034d122d0a5738
 
 cd ~/.julia/artifacts
 
