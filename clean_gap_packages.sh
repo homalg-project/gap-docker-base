@@ -2,7 +2,7 @@
 
 set -e
 
-gap_packages_artifact_hash=1e4da4944af996a96c81addcc8034d122d0a5738
+gap_packages_artifact_hash=$(julia --cpu-target "generic" -e 'using Artifacts; using GAP; print(artifact_hash("gap_packages", abspath(pathof(GAP), "..", "..", "Artifacts.toml")))')
 
 cd ~/.julia/artifacts
 
