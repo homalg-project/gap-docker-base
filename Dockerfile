@@ -200,7 +200,8 @@ RUN sed -i '/GAP = "0.7/d' .julia/dev/CapAndHomalg/Project.toml
 # installation and cleaning has to happen in the some step or we will not get any saving due to the layering system
 # use CPU target "generic" to avoid recompilation on different x86_64 CPUs
 # Pkg.develop of a cloned pacakge does not trigger Pkg.build (see: https://github.com/JuliaLang/Pkg.jl/issues/4068)
-RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("IJulia"); Pkg.develop("GAP"); Pkg.build("GAP"); Pkg.develop("CapAndHomalg"); Pkg.build("CapAndHomalg");'; bash clean_gap_packages.sh
+RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("IJulia"); Pkg.develop("GAP"); Pkg.build("GAP"); Pkg.develop("CapAndHomalg"); Pkg.build("CapAndHomalg");'
+RUN bash clean_gap_packages.sh
 
 # Start from a BASH shell.
 CMD ["bash"]
