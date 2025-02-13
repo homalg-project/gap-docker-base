@@ -206,5 +206,8 @@ RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("IJulia"); Pkg.build("IJ
 RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.develop("CapAndHomalg"); Pkg.build("CapAndHomalg"); using CapAndHomalg;'
 #RUN bash clean_gap_packages.sh
 
+# workaround until new digraphs version is released
+RUN touch $(ls -d .julia/gaproot/v*/pkg/digraphs*/gap)/doc.g
+
 # Start from a BASH shell.
 CMD ["bash"]
