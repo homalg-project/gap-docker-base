@@ -81,6 +81,16 @@ RUN    addgroup --quiet --gid 121 gap \
     && cd /home/gap \
     && touch .sudo_as_admin_successful
 
+RUN   apt-get update \
+    && apt-get install -y gcc python3 python3-pip python3-venv \
+    && python3 -m venv /opt/venv \
+    && /opt/venv/bin/pip install --upgrade pip \
+    && /opt/venv/bin/pip install ansible \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists*
+
+ENV PATH="/opt/venv/bin:$PATH"
+
 ## CXSC (for Float)
 #ENV CXSC_VERSION=2-5-4
 #RUN    cd /tmp \
