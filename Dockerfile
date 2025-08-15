@@ -204,6 +204,8 @@ RUN mkdir -p .julia/dev
 #RUN git clone https://github.com/oscar-system/GAP.jl .julia/dev/GAP
 # clone CapAndHomalg.jl
 RUN git clone https://github.com/homalg-project/CapAndHomalg.jl .julia/dev/CapAndHomalg
+# clone MatricesForHomalg.jl
+RUN git clone https://github.com/homalg-project/MatricesForHomalg.jl .julia/dev/MatricesForHomalg
 
 # ignore compatibility of CapAndHomalg with GAP
 #RUN sed -i '/GAP = "0.7/d' .julia/dev/CapAndHomalg/Project.toml
@@ -214,6 +216,10 @@ RUN git clone https://github.com/homalg-project/CapAndHomalg.jl .julia/dev/CapAn
 RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("IJulia"); Pkg.build("IJulia"); using IJulia;'
 #RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.develop("GAP"); Pkg.build("GAP"); using GAP;'
 RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.develop("CapAndHomalg"); Pkg.build("CapAndHomalg"); using CapAndHomalg;'
+RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("JSON3"); Pkg.build("JSON3"); using JSON3;'
+RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("Nemo"); Pkg.build("Nemo"); using Nemo;'
+RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("AbstractAlgebra"); Pkg.build("AbstractAlgebra"); using AbstractAlgebra;'
+RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.develop("MatricesForHomalg"); Pkg.build("MatricesForHomalg"); using MatricesForHomalg;'
 #RUN bash clean_gap_packages.sh
 
 # workaround until new digraphs version is released
