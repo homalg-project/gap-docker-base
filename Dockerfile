@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # never install suggests or recommends to make the image smaller
 RUN echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf
@@ -82,7 +82,7 @@ RUN    addgroup --quiet --gid 121 gap \
     && touch .sudo_as_admin_successful
 
 ## CXSC (for Float)
-#ENV CXSC_VERSION 2-5-4
+#ENV CXSC_VERSION=2-5-4
 #RUN    cd /tmp \
 #    && wget http://www2.math.uni-wuppertal.de/wrswt/xsc/cxsc/cxsc-${CXSC_VERSION}.tar.gz \
 #    && tar -xf cxsc-${CXSC_VERSION}.tar.gz \
@@ -93,7 +93,7 @@ RUN    addgroup --quiet --gid 121 gap \
 #    && make install
 #
 ## libfplll (for Float)
-#ENV FPLLL_VERSION 5.2.1
+#ENV FPLLL_VERSION=5.2.1
 #RUN    cd /tmp \
 #    && wget https://github.com/fplll/fplll/releases/download/${FPLLL_VERSION}/fplll-${FPLLL_VERSION}.tar.gz \
 #    && tar -xf fplll-${FPLLL_VERSION}.tar.gz \
@@ -117,8 +117,8 @@ RUN    addgroup --quiet --gid 121 gap \
 ##     && rm -rf flint2
 #
 ## Singular
-#ENV SINGULAR_VERSION 4.1.2
-#ENV SINGULAR_PATCH p1
+#ENV SINGULAR_VERSION=4.1.2
+#ENV SINGULAR_PATCH=p1
 #RUN    cd /opt \
 #    && wget http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/$(echo ${SINGULAR_VERSION} | tr . -)/singular-${SINGULAR_VERSION}${SINGULAR_PATCH}.tar.gz \
 #    && tar -xf singular-${SINGULAR_VERSION}${SINGULAR_PATCH}.tar.gz \
@@ -130,7 +130,7 @@ RUN    addgroup --quiet --gid 121 gap \
 #    && make install
 #
 ## 4ti2
-#ENV _4TI2_VERSION 1_6_9
+#ENV _4TI2_VERSION=1_6_9
 #RUN    cd /opt \
 #    && wget https://github.com/4ti2/4ti2/archive/Release_${_4TI2_VERSION}.tar.gz \
 #    && tar -xf Release_${_4TI2_VERSION}.tar.gz \
@@ -145,7 +145,7 @@ RUN    addgroup --quiet --gid 121 gap \
 #    && make install
 #
 ## Pari/GP
-#ENV PARI_VERSION 2.9.5
+#ENV PARI_VERSION=2.9.5
 #RUN    cd /tmp/ \
 #    # the https version uses a certificate not trusted by wget
 #    && wget http://pari.math.u-bordeaux.fr/pub/pari/OLD/2.9/pari-${PARI_VERSION}.tar.gz \
@@ -165,7 +165,7 @@ RUN    addgroup --quiet --gid 121 gap \
 
 #RUN rm -r /tmp/*
 
-#ENV LD_LIBRARY_PATH /usr/local/lib:${LD_LIBRARY_PATH}
+#ENV LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
 
 # /usr/lib/git-core/git-subtree: use bash instead of sh (= dash)
 # /usr/lib/git-core/git-subtree fails with "Maximum function recursion depth (1000) reached" for large projects when using dash in Debian/Ubuntu
@@ -173,7 +173,7 @@ RUN sed 's|#!/bin/sh|#!/bin/bash|' -i /usr/lib/git-core/git-subtree
 
 # Set up new user and home directory in environment.
 USER gap
-ENV HOME /home/gap
+ENV HOME=/home/gap
 
 # Note that WORKDIR will not expand environment variables in docker versions < 1.3.1.
 # See docker issue 2637: https://github.com/docker/docker/issues/2637
@@ -185,7 +185,7 @@ RUN mkdir -p .gap/pkg
 
 RUN mkdir -p inst/julia-master && curl -L https://julialangnightlies-s3.julialang.org/bin/linux/x64/julia-latest-linux64.tar.gz | tar -xvz --strip-components=1 -C inst/julia-master
 
-ENV PATH /home/gap/inst/julia-master/bin:${PATH}
+ENV PATH=/home/gap/inst/julia-master/bin:${PATH}
 
 COPY clean_gap_packages.sh /home/gap/clean_gap_packages.sh
 
