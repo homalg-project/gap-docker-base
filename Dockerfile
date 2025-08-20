@@ -220,6 +220,8 @@ RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("JSON3"); Pkg.build("JSO
 RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("Nemo"); Pkg.build("Nemo"); using Nemo;'
 RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.add("AbstractAlgebra"); Pkg.build("AbstractAlgebra"); using AbstractAlgebra;'
 RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.develop("MatricesForHomalg"); Pkg.build("MatricesForHomalg"); using MatricesForHomalg;'
+# Documenter is not part of the standard library in Julia
+RUN julia --cpu-target "generic" -e 'using Pkg; Pkg.develop("Documenter"); Pkg.build("Documenter"); using Documenter;'
 #RUN bash clean_gap_packages.sh
 
 # Start from a BASH shell.
