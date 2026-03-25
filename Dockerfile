@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:latest
 
 ENV LANG=C.UTF-8
 
@@ -66,7 +66,7 @@ RUN    dpkg --add-architecture i386 \
     && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
 RUN    curl -L https://download.arangodb.com/arangodb312/DEBIAN/Release.key | gpg --dearmor > /etc/apt/trusted.gpg.d/arangodb.gpg \
-    && echo 'deb https://download.arangodb.com/arangodb312/DEBIAN/ /' > /etc/apt/sources.list.d/arangodb.list \
+    && echo 'deb [trusted=yes] https://download.arangodb.com/arangodb312/DEBIAN/ /' > /etc/apt/sources.list.d/arangodb.list \
     && apt-get update \
     && apt-get install arangodb3-client
 
