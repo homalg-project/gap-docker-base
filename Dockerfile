@@ -42,7 +42,6 @@ RUN    dpkg --add-architecture i386 \
             #mercurial \
             #polymake \
             #python3-pip \
-            #pipx \
             sudo \
             unzip \
             wget \
@@ -59,9 +58,8 @@ RUN    dpkg --add-architecture i386 \
             libnormaliz-dev \
             zip \
             time \
-            jupyter \
-            #jupyter-notebook \
-            #jupyter-nbconvert \
+            jupyter-notebook \
+            jupyter-nbconvert \
             # needed for getprotobyname used in IO_socket in IO, used for SingleHTTPRequest
             netbase \
             bash-completion \
