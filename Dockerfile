@@ -193,18 +193,14 @@ WORKDIR /home/gap
 # create GAP user root
 RUN mkdir -p .gap/pkg
 
-# Temporarily? use stable Julia to avoid nightly incompatibilities with GAP's prebuilt JuliaInterface.
+# get julia using the official installation script. Replace nightly by release to get the latest stable version
 RUN curl -fsSL https://install.julialang.org | sh -s -- \
     --yes \
-    --default-channel release \
+    --default-channel nightly \
     --add-to-path=no \
     --startup-selfupdate=0
 
 ENV PATH="/home/gap/.juliaup/bin:${PATH}"
-
-# The following uses the julia nightly builds.
-# RUN mkdir -p inst/julia-master && curl -L https://julialangnightlies-s3.julialang.org/bin/linux/x64/julia-latest-linux64.tar.gz | tar -xvz --strip-components=1 -C inst/julia-master
-# ENV PATH=/home/gap/inst/julia-master/bin:${PATH}
 
 COPY clean_gap_packages.sh /home/gap/clean_gap_packages.sh
 
